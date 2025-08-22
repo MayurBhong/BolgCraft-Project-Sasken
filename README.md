@@ -25,6 +25,8 @@ The collaboration module allows team members to leave comments and suggestions d
 
 🔹Edit Suggestions: Provide recommended changes without altering the draft
 # 📦 Screenshot Of Project
+![Image](https://github.com/user-attachments/assets/592e740f-9290-4240-88ec-405f268d4024)
+
 
 
 
