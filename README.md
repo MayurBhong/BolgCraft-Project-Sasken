@@ -11,7 +11,7 @@ The collaboration module allows team members to leave comments and suggestions d
 
 🔹IDE: Visual Studio Code
 # 🚀 Features
-#✅ Core Workflow of Module
+# ✅ Core Workflow of Module
 
 🔹Inline Comments: Add feedback directly on draft sections
 
@@ -25,6 +25,7 @@ The collaboration module allows team members to leave comments and suggestions d
 
 🔹Edit Suggestions: Provide recommended changes without altering the draft
 # 📦 Screenshot Of Project
+
 
 
 
