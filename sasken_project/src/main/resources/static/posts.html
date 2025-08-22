@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>All Posts - BlogCraft</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="posts.js"></script>
+  </head>
+  <body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <span class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              BlogCraft
+            </span>
+          </div>
+          <nav class="hidden md:flex gap-8 text-sm font-medium">
+            <a href="index.html" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">Home</a>
+            <a href="dashboard.html" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">Dashboard</a>
+            <a href="posts.html" class="text-blue-700 font-bold">All Posts</a>
+            <a href="drafts.html" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">Drafts</a>
+            <a href="review.html" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">Review Panel</a>
+            <a href="create.html" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">Create Post</a>
+          </nav>
+          <div class="md:hidden">
+            <button class="text-gray-700">
+              <span class="text-xl">☰</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto pt-2 pb-10 px-4">
+      <!-- Search and Filter Section -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
+        <div class="flex flex-col md:flex-row gap-4">
+          <!-- Search Bar -->
+          <div class="flex-1">
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-xl">🔍</span>
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Search posts by title or content..."
+                class="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                oninput="handleSearch()"
+              />
+            </div>
+          </div>
+
+          <!-- Date Filter Dropdown -->
+          <div class="md:w-64">
+            <div class="relative">
+              <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-xl">📅</span>
+              <select
+                id="dateFilter"
+                class="w-full pl-12 pr-8 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white"
+                onchange="handleDateFilter()"
+              >
+                <option value="all">All Time</option>
+                <option value="today">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+                <option value="year">This Year</option>
+              </select>
+              <span class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">▼</span>
+            </div>
+          </div>
+
+          <!-- Status Filter (REMOVED) -->
+
+          <!-- Clear Filters Button -->
+          <button
+            onclick="clearAllFilters()"
+            class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-medium transition-all duration-200 flex items-center justify-center gap-2"
+          >
+            🔄 Clear
+          </button>
+        </div>
+      </div>
+
+      <!-- Results Info -->
+      <div class="flex justify-between items-center mb-6">
+        <div id="resultsInfo" class="text-gray-600">
+          Loading posts...
+        </div>
+        <div class="flex items-center gap-2 text-sm text-gray-500">
+          <span>Sort by:</span>
+          <select
+            id="sortFilter"
+            class="border border-gray-200 rounded px-3 py-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            onchange="handleSort()"
+          >
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="title">Title A-Z</option>
+            <option value="author">Author A-Z</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Post List -->
+      <div id="posts" class="space-y-6">
+        <!-- JS will insert blog posts here -->
+      </div>
+    </main>
+
+    <!-- Full Content Modal (Added) -->
+    <div id="full-content-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4 transition-opacity duration-300">
+      <div class="bg-white rounded-xl shadow-2xl max-w-3xl w-full max-h-[90vh] flex flex-col">
+        <!-- Modal Header -->
+        <div class="p-6 border-b border-gray-200">
+          <div class="flex justify-between items-start">
+            <h2 id="modal-title" class="text-2xl font-bold text-gray-900 pr-4">Post Title</h2>
+            <button onclick="closeFullPostModal()" class="text-gray-400 hover:text-gray-800 text-3xl font-light leading-none flex-shrink-0">&times;</button>
+          </div>
+          <div id="modal-meta" class="text-sm text-gray-500 mt-2">Author and Date Info</div>
+        </div>
+        <!-- Modal Body -->
+        <div id="modal-content" class="p-6 text-gray-700 leading-relaxed overflow-y-auto" style="white-space: pre-wrap;">
+          Full post content will appear here...
+        </div>
+        <!-- Modal Footer -->
+        <div class="bg-gray-50 px-6 py-4 border-t border-gray-200 text-right rounded-b-xl">
+            <button onclick="closeFullPostModal()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-5 py-2 rounded-lg font-semibold transition-colors">Close</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

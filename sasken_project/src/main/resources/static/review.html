@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Review Panel - BlogCraft</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="review.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      body { font-family: 'Inter', sans-serif; }
+      .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+      .card-hover { transition: all 0.3s ease; }
+      .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
+    </style>
+  </head>
+  <body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-6 py-4">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+            </div>
+            <span class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              BlogCraft
+            </span>
+          </div>
+          <nav class="hidden md:flex gap-8 text-sm font-medium">
+            <a href="index.html" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">Home</a>
+            <a href="dashboard.html" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">Dashboard</a>
+            <a href="posts.html" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">All Posts</a>
+            <a href="drafts.html" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">Drafts</a>
+            <a href="review.html" class="text-blue-700 font-bold">Review Panel</a>
+            <a href="create.html" class="text-gray-700 hover:text-blue-600 transition-colors duration-200">Create Post</a>
+          </nav>
+          <div class="md:hidden">
+            <button class="text-gray-700">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Review Section -->
+    <main class="max-w-7xl mx-auto px-6 py-12">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <div class="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center">
+            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h1 class="text-4xl font-bold text-gray-900">Review Blog Posts</h1>
+        </div>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Review and approve content before it goes live. Ensure quality and consistency across all published posts.
+        </p>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-gray-900" id="pending-count">0</div>
+              <div class="text-sm text-gray-600">Pending Review</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-gray-900" id="approved-count">0</div>
+              <div class="text-sm text-gray-600">Approved</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-gray-900" id="rejected-count">0</div>
+              <div class="text-sm text-gray-600">Rejected</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review Posts Container -->
+      <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="bg-gradient-to-r from-yellow-500 to-orange-500 px-8 py-6">
+          <div class="flex items-center gap-3">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            <h2 class="text-xl font-bold text-white">Posts Awaiting Review</h2>
+          </div>
+        </div>
+        
+        <div class="p-8">
+          <div id="review-posts" class="space-y-6">
+            <!-- Posts for review loaded via review.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Review Guidelines -->
+      <div class="mt-8 bg-blue-50 rounded-2xl p-6 border border-blue-100">
+        <div class="flex items-start gap-3">
+          <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-blue-900 mb-3">Review Guidelines</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-blue-800">
+              <div>
+                <h4 class="font-medium mb-2">✅ Approve if:</h4>
+                <ul class="space-y-1">
+                  <li>• Content is accurate and well-researched</li>
+                  <li>• Writing is clear and engaging</li>
+                  <li>• Follows brand guidelines</li>
+                  <li>• No grammatical or spelling errors</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-medium mb-2">🔄 Revert to Draft if:</h4>
+                <ul class="space-y-1">
+                  <li>• Content needs significant revision</li>
+                  <li>• Factual errors or unclear information</li>
+                  <li>• Tone doesn't match brand voice</li>
+                  <li>• Missing required elements</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
