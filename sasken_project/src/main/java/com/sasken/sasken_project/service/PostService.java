@@ -1,9 +1,9 @@
-package com.sasken.sasken_project.service; // FIXED: Removed backslash
+package com.sasken.sasken_project.service;
 
-import java.util.List; // FIXED: Removed backslash
-import java.util.Optional; // FIXED: Correct import for nested enum
+import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired; // FIXED: Removed backslash
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -102,5 +102,41 @@ public class PostService {
 
     public List<Post> getPostsByStatus(PostStatus status) {
         return postRepository.findByStatus(status);
+    }
+
+    // New method: increment like count
+    @Transactional
+    public Post likePost(Long id) {
+        Optional<Post> postOpt = postRepository.findById(id);
+        if (postOpt.isPresent()) {
+            Post post = postOpt.get();
+            post.setLikes(post.getLikes() + 1);
+            return postRepository.save(post);
+        }
+        return null;
+    }
+
+    // New method: add comment
+    @Transactional
+    public Post addComment(Long id, String comment) {
+        Optional<Post> postOpt = postRepository.findById(id);
+        if (postOpt.isPresent()) {
+            Post post = postOpt.get();
+            post.getComments().add(comment);
+            return postRepository.save(post);
+        }
+        return null;
+    }
+
+    // New method: add feedback
+    @Transactional
+    public Post addFeedback(Long id, String feedback) {
+        Optional<Post> postOpt = postRepository.findById(id);
+        if (postOpt.isPresent()) {
+            Post post = postOpt.get();
+            post.getFeedback().add(feedback);
+            return postRepository.save(post);
+        }
+        return null;
     }
 }
