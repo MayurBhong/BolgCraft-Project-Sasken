@@ -1,8 +1,11 @@
-package com.sasken.sasken_project.entity; // FIXED: Removed backslash
+package com.sasken.sasken_project.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -17,7 +20,6 @@ import jakarta.persistence.Table;
 @Table(name = "posts")
 public class Post {
 
-    // The enum should be defined inside the class for best practice
     public enum PostStatus {
         DRAFT, PUBLISHED, REVIEWED, ARCHIVED
     }
@@ -35,7 +37,6 @@ public class Post {
     @Enumerated(EnumType.STRING)
     private PostStatus status = PostStatus.DRAFT;
 
-    // FIXED: Corrected column names (removed backslashes)
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -44,6 +45,15 @@ public class Post {
 
     @Column(name = "author")
     private String author;
+
+    // New fields added
+    private int likes = 0;
+
+    @ElementCollection
+    private List<String> comments = new ArrayList<>();
+
+    @ElementCollection
+    private List<String> feedback = new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {
@@ -65,7 +75,7 @@ public class Post {
         this.author = author;
     }
 
-    // Getters and Setters
+    // Getters and Setters (including new fields)
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -87,6 +97,15 @@ public class Post {
     public String getAuthor() { return author; }
     public void setAuthor(String author) { this.author = author; }
 
+    public int getLikes() { return likes; }
+    public void setLikes(int likes) { this.likes = likes; }
+
+    public List<String> getComments() { return comments; }
+    public void setComments(List<String> comments) { this.comments = comments; }
+
+    public List<String> getFeedback() { return feedback; }
+    public void setFeedback(List<String> feedback) { this.feedback = feedback; }
+
     @Override
     public String toString() {
         return "Post{" +
@@ -97,6 +116,9 @@ public class Post {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", author='" + author + '\'' +
+                ", likes=" + likes +
+                ", comments=" + comments +
+                ", feedback=" + feedback +
                 '}';
     }
 }
